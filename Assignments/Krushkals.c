@@ -8,7 +8,7 @@
 int find_parent(int i, int* parent)
 {
     while (parent[i] != i ){
-       //parent[i] = parent[parent[i]];
+      // parent[i] = parent[parent[i]];
         i = parent[i];
     }
     return i;
@@ -58,9 +58,16 @@ void Krushkals(int A[6][6], int n, int starting)
 
 int main() {
     int Matrix[6][6] = {{INT_MAX,2,3,INT_MAX,INT_MAX, INT_MAX},{2,INT_MAX,4 ,5,6, INT_MAX},{3,4,INT_MAX,INT_MAX,7, INT_MAX},{INT_MAX,5,INT_MAX,INT_MAX,6, 4},{INT_MAX,6,7,6,INT_MAX, 3}, {INT_MAX, INT_MAX, INT_MAX, 4, 3, INT_MAX}};
+<<<<<<< HEAD
     Krushkals(Matrix, 6, 0);
   // int* arr = (int*) malloc(sizeof(int) * 6);
 
  
+=======
+   Krushkals(Matrix, 6, 0);
+
+
+    printf("dotnet meow\n");
+>>>>>>> 85d68b78025099f9fc6fda6f4ff646030b0d2435
     return 0;
 }
