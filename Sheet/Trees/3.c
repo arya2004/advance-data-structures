@@ -13,6 +13,15 @@ typedef struct _Node{
     struct _Node* right;
 }Node;
 
+Node* Stack[100];
+int base = 0;
+int top = -1;
+
+Node* Stack2[100];
+int base2 = 0;
+int top2 = -1;
+
+
 Node* BST_new()
 {
     Node* temp = (Node*) malloc(sizeof(Node));
@@ -32,6 +41,19 @@ void inorder(Node* n)
     }
     
 }
+
+void postorder(Node* n)
+{
+    if (n != NULL)
+    {
+        postorder(n->left);
+        
+        postorder(n->right);
+        printf("%i ", n->data);
+    }
+    
+}
+
 
 
 Node* BST_insert(Node* n, int _data)
@@ -85,16 +107,105 @@ Node* BST_insert(Node* n, int _data)
     
 }
 
+void PReorderITer(Node* T)
+{
+    //Node* temp = T;
+    top++;
+    Stack[top] = T;
+    
+    //printf("f");
+    while (top != -1)
+    {
+        Node* temp =  Stack[top];
+        top--;
+        printf("%i ", temp->data);
+        if(temp->right != NULL){
+             top++;
+            Stack[top] = temp->right;
+            
+        }
+        if(temp->left != NULL){
+              top++;
+            Stack[top] = temp->left;
+           
+        }
+        
+    }
+    
+
+}
+
+void INOrderItr(Node* T)
+{   
+    //top++;
+  //  Stack[top] = T;
+    Node* temp = T;
+
+    while (true)
+    {
+        if(temp != NULL)
+        {
+            top++;
+            Stack[top] = temp; 
+            temp = temp->left;
+        }
+        else{
+            if(top == -1) break;
+            temp = Stack[top];
+            top--;
+            printf("%i ", temp->data);
+            temp = temp->right;
+        }
+        
+    }
+    
+}
+
+void POstorderItr(Node* T){
+    Node* temp = T;
+    top++;
+    Stack[top] = T;
+    while (top != -1)
+    {
+        //pop
+       temp = Stack[top];
+       top--;
+
+        //push
+       top2++;
+       Stack2[top2] = temp;
+       if(temp->left != NULL) {
+            top++;
+            Stack[top] = temp->left; 
+       }
+       if(temp->right != NULL) {
+            top++;
+            Stack[top] = temp->right; 
+       }
+    }
+    while (top2 != -1)
+    {
+        temp = Stack2[top2];
+        top2--;
+        printf("%i ", temp->data);
+    }
+    
+    
+}
+
+
 int main()
 {
     Node* meowOS = BST_new();
     BST_insert(meowOS, 55);
     BST_insert(meowOS, 52);
-    BST_insert(meowOS, 78);
+    BST_insert(meowOS, 8);
     BST_insert(meowOS, 56);
     BST_insert(meowOS, 75);
     BST_insert(meowOS, 12);
-    inorder(meowOS);
+   postorder(meowOS);
+    printf("\n");
+   POstorderItr(meowOS);
    
     return 0;
 }
