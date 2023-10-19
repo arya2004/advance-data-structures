@@ -194,6 +194,7 @@ void POstorderItr(Node* T){
 }
 
 
+
 int main()
 {
     Node* meowOS = BST_new();
@@ -203,9 +204,9 @@ int main()
     BST_insert(meowOS, 56);
     BST_insert(meowOS, 75);
     BST_insert(meowOS, 12);
-   postorder(meowOS);
+    postorder(meowOS);
     printf("\n");
-   POstorderItr(meowOS);
+    POstorderItr(meowOS);
    
     return 0;
 }
