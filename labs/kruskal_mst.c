@@ -27,6 +27,7 @@ void kruskalMST(int graph[][V]) {
     while (edgeCount < V - 1) {
         int minWeight = INT_MAX, minSrc = -1, minDest = -1;
 
+        // Find the minimum weight edge that does not create a cycle
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
                 if (graph[i][j] != 0 && find(parent, i) != find(parent, j) && graph[i][j] < minWeight) {
@@ -37,6 +38,7 @@ void kruskalMST(int graph[][V]) {
             }
         }
 
+        // If a minimum weight edge is found, add it to the MST
         if (minSrc != -1 && minDest != -1) {
             printf("Edge %d - %d: %d\n", minSrc, minDest, minWeight);
             unionSets(parent, minSrc, minDest);
@@ -47,12 +49,13 @@ void kruskalMST(int graph[][V]) {
 
 int main() {
     int graph[V][V] = {
-            {0, 10, 6, 5},
-            {10, 0, 0, 15},
-            {6, 0, 0, 4},
-            {5, 15, 4, 0}
+        {0, 10, 6, 5},
+        {10, 0, 0, 15},
+        {6, 0, 0, 4},
+        {5, 15, 4, 0}
     };
 
+    // Call the Kruskal's MST function and print the result
     kruskalMST(graph);
 
     return 0;
