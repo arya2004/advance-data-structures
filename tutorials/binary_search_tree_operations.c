@@ -1,98 +1,74 @@
-#include<stdio.h>
-#include<conio.h>
-#include<stdlib.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include<stdbool.h>
 
-typedef struct _Product{
-    int id;
-    
-}Product;
-
-
-typedef struct _Node{
+// Define a structure for a Node in the binary search tree
+typedef struct _Node {
     int data;
     struct _Node* left;
     struct _Node* right;
-}Node;
+} Node;
 
-Node* BST_new()
-{
-    Node* temp = (Node*) malloc(sizeof(Node));
-    temp->data = NULL;
+// Create a new empty binary search tree
+Node* BST_new() {
+    Node* temp = (Node*)malloc(sizeof(Node));
+    temp->data = -1;  // Initialize with a placeholder value
     temp->left = NULL;
     temp->right = NULL;
     return temp;
 }
 
-void inorder(Node* n)
-{
-    if (n != NULL)
-    {
+// Recursive inorder traversal of the binary search tree
+void inorder(Node* n) {
+    if (n != NULL) {
         inorder(n->left);
         printf("%i ", n->data);
         inorder(n->right);
     }
-    
 }
 
-
-Node* BST_insert(Node* n, int _data)
-{
+// Insert a new node with data '_data' into the binary search tree rooted at 'n'
+Node* BST_insert(Node* n, int _data) {
     Node* traversal = n;
-    if(n->data == NULL)
-    {
+    if (n->data == -1) {  // Check if the tree is empty
         n->data = _data;
         return n;
     }
     
-    while (traversal != NULL)
-    {
-        if (_data < traversal->data)
-        {
-            if (traversal->left == NULL)
-            {
-                traversal->left = (Node*) malloc(sizeof(Node));
+    while (traversal != NULL) {
+        if (_data < traversal->data) {
+            if (traversal->left == NULL) {
+                traversal->left = (Node*)malloc(sizeof(Node));
                 traversal = traversal->left;
                 traversal->data = _data;
                 traversal->left = NULL;
                 traversal->right = NULL;
                 return n;
             }
-            else{
+            else {
                 traversal = traversal->left;
             }
-            
         }
-        else if(_data > traversal->data)
-        {
-            if(traversal->right == NULL)
-            {
-                traversal->right = (Node*) malloc(sizeof(Node));
+        else if (_data > traversal->data) {
+            if (traversal->right == NULL) {
+                traversal->right = (Node*)malloc(sizeof(Node));
                 traversal = traversal->right;
                 traversal->data = _data;
                 traversal->left = NULL;
                 traversal->right = NULL;
                 return n;
             }
-            else{
+            else {
                 traversal = traversal->right;
             }
         }
-        else{
+        else {
             fprintf(stderr, "DATA ALREADY IN BST");
         }
-        
     }
     return n;
-    
 }
 
-int main()
-{
+int main() {
     Node* meowOS = BST_new();
     BST_insert(meowOS, 55);
     BST_insert(meowOS, 52);

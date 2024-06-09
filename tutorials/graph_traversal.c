@@ -1,28 +1,15 @@
-/*Write a Program to accept a graph from user and represent it with
-Adjacency Matrix and perform BFS and DFS traversals on it.*/
-
 #include<stdio.h>
-#include<conio.h>
 #include<stdlib.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include<stdbool.h>
-
-#include<stdio.h>
-#include<conio.h>
-#include<stdlib.h>
-#include <math.h>
 
 #define MAX_SIZE 100
 
+// Queue structure for BFS
 typedef struct _Queue {
     int data[MAX_SIZE];
     int front, rear;
     int maxCapacity;
     int currentCapacity;
-}Queue;
+} Queue;
 
 void initializeQueue(Queue* q) {
     q->front = -1;
@@ -74,13 +61,13 @@ int dequeue(Queue* q) {
     q->currentCapacity--;
     return value;
 }
-//________________________________________
 
+// Stack structure for DFS
 typedef struct _Stack{
     int* data;
     int size;
     int top;
-}Stack;
+} Stack;
 
 Stack* Stack_new(int _size)
 {
@@ -103,26 +90,21 @@ int Stack_pop(Stack* s)
     return temp;
 }
 
-
+// Perform BFS on a graph
 int BFS()
 {
-     int vertices = 8; // Number of vertices in the graph
+    int vertices = 8; // Number of vertices in the graph
     int graph[8][8] =  {
-        {0, 1, 1, 0, 0, 0, 0, 0}, // Vertex 0 is connected to vertex 1
-        {1, 0, 0, 1, 0, 0, 0, 0}, // Vertex 1 is connected to vertices 0 and 2
-        {1, 0, 0, 1, 0, 0, 0, 0}, // Vertex 2 is connected to vertices 1 and 3
-        {0, 1, 1, 0, 1, 0, 0, 0}, // Vertex 3 is connected to vertices 2 and 4
-        {0, 0, 0, 1, 0, 1, 1, 0}, // Vertex 4 is connected to vertices 3 and 5
-        {0, 0, 0, 0, 1, 0, 0, 1}, // Vertex 5 is connected to vertices 4 and 6
-        {0, 0, 0, 0, 1, 0, 0, 1}, // Vertex 6 is connected to vertices 5 and 7
-        {0, 0, 0, 0, 0, 1, 1, 0}  // Vertex 7 is connected to vertex 6
+        {0, 1, 1, 0, 0, 0, 0, 0},
+        {1, 0, 0, 1, 0, 0, 0, 0},
+        {1, 0, 0, 1, 0, 0, 0, 0},
+        {0, 1, 1, 0, 1, 0, 0, 0},
+        {0, 0, 0, 1, 0, 1, 1, 0},
+        {0, 0, 0, 0, 1, 0, 0, 1},
+        {0, 0, 0, 0, 1, 0, 0, 1},
+        {0, 0, 0, 0, 0, 1, 1, 0}
     };
-    int visited[8];
-    for (int i = 0; i < vertices; i++)
-    {
-        visited[i] = 0;
-    }
-    
+    int visited[8] = {0};
     int starting_vertex = 3;
     Queue q;
     initializeQueue(&q);
@@ -140,37 +122,26 @@ int BFS()
                 visited[j] = 1;
             }
         }
-        
     }
-    printf("\ndotnet mewo\n");
-   
-
-
+    printf("\n");
     return 0;
 }
 
-
-
-//dfs
+// Perform DFS on a graph
 int DFS()
 {
-     int vertices = 8; // Number of vertices in the graph
+    int vertices = 8;
     int graph[8][8] =  {
-        {0, 1, 1, 0, 0, 0, 0, 0}, // Vertex 0 is connected to vertex 1
-        {1, 0, 0, 1, 0, 0, 0, 0}, // Vertex 1 is connected to vertices 0 and 2
-        {1, 0, 0, 1, 0, 0, 0, 0}, // Vertex 2 is connected to vertices 1 and 3
-        {0, 1, 1, 0, 1, 0, 0, 0}, // Vertex 3 is connected to vertices 2 and 4
-        {0, 0, 0, 1, 0, 1, 1, 0}, // Vertex 4 is connected to vertices 3 and 5
-        {0, 0, 0, 0, 1, 0, 0, 1}, // Vertex 5 is connected to vertices 4 and 6
-        {0, 0, 0, 0, 1, 0, 0, 1}, // Vertex 6 is connected to vertices 5 and 7
-        {0, 0, 0, 0, 0, 1, 1, 0}  // Vertex 7 is connected to vertex 6
+        {0, 1, 1, 0, 0, 0, 0, 0},
+        {1, 0, 0, 1, 0, 0, 0, 0},
+        {1, 0, 0, 1, 0, 0, 0, 0},
+        {0, 1, 1, 0, 1, 0, 0, 0},
+        {0, 0, 0, 1, 0, 1, 1, 0},
+        {0, 0, 0, 0, 1, 0, 0, 1},
+        {0, 0, 0, 0, 1, 0, 0, 1},
+        {0, 0, 0, 0, 0, 1, 1, 0}
     };
-    int visited[8];
-    for (int i = 0; i < vertices; i++)
-    {
-        visited[i] = 0;
-    }
-    
+    int visited[8] = {0};
     int starting_vertex = 3;
     Stack* s = Stack_new(100);
     Stack_push(s, starting_vertex);
@@ -186,14 +157,9 @@ int DFS()
                 Stack_push(s, j);
                 visited[j] = 1;
             }
-            
         }
-        
     }
-    printf("\ndotnet mewo");
-
-
-
+    printf("\n");
     return 0;
 }
 

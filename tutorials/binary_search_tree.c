@@ -1,18 +1,16 @@
-#include<stdio.h>
-#include<conio.h>
-#include<stdlib.h>
-#include <math.h>
+// File name: binary_search_tree.c
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include<stdbool.h>
+#include <stdbool.h>
 
-typedef struct _Node{
+// Define a structure for the Binary Search Tree (BST) node
+typedef struct _Node {
     int data;
     struct _Node* left;
     struct _Node* right;
-}Node;
+} Node;
 
+// Global variables for iterative traversal using stacks
 Node* Stack[100];
 int base = 0;
 int top = -1;
@@ -21,182 +19,151 @@ Node* Stack2[100];
 int base2 = 0;
 int top2 = -1;
 
+// Function prototypes
+Node* BST_new();
+void inorder(Node* n);
+void postorder(Node* n);
+Node* BST_insert(Node* n, int _data);
+void PReorderITer(Node* T);
+void INOrderItr(Node* T);
+void POstorderItr(Node* T);
 
-Node* BST_new()
-{
-    Node* temp = (Node*) malloc(sizeof(Node));
+// Create a new Binary Search Tree node
+Node* BST_new() {
+    Node* temp = (Node*)malloc(sizeof(Node));
     temp->data = NULL;
     temp->left = NULL;
     temp->right = NULL;
     return temp;
 }
 
-void inorder(Node* n)
-{
-    if (n != NULL)
-    {
+// Recursive inorder traversal of BST
+void inorder(Node* n) {
+    if (n != NULL) {
         inorder(n->left);
         printf("%i ", n->data);
         inorder(n->right);
     }
-    
 }
 
-void postorder(Node* n)
-{
-    if (n != NULL)
-    {
+// Recursive postorder traversal of BST
+void postorder(Node* n) {
+    if (n != NULL) {
         postorder(n->left);
-        
         postorder(n->right);
         printf("%i ", n->data);
     }
-    
 }
 
-
-
-Node* BST_insert(Node* n, int _data)
-{
+// Insert a node into the Binary Search Tree
+Node* BST_insert(Node* n, int _data) {
     Node* traversal = n;
-    if(n->data == NULL)
-    {
+    if (n->data == NULL) {
         n->data = _data;
         return n;
     }
-    
-    while (traversal != NULL)
-    {
-        if (_data < traversal->data)
-        {
-            if (traversal->left == NULL)
-            {
-                traversal->left = (Node*) malloc(sizeof(Node));
+
+    while (traversal != NULL) {
+        if (_data < traversal->data) {
+            if (traversal->left == NULL) {
+                traversal->left = (Node*)malloc(sizeof(Node));
                 traversal = traversal->left;
                 traversal->data = _data;
                 traversal->left = NULL;
                 traversal->right = NULL;
                 return n;
             }
-            else{
+            else {
                 traversal = traversal->left;
             }
-            
         }
-        else if(_data > traversal->data)
-        {
-            if(traversal->right == NULL)
-            {
-                traversal->right = (Node*) malloc(sizeof(Node));
+        else if (_data > traversal->data) {
+            if (traversal->right == NULL) {
+                traversal->right = (Node*)malloc(sizeof(Node));
                 traversal = traversal->right;
                 traversal->data = _data;
                 traversal->left = NULL;
                 traversal->right = NULL;
                 return n;
             }
-            else{
+            else {
                 traversal = traversal->right;
             }
         }
-        else{
+        else {
             fprintf(stderr, "DATA ALREADY IN BST");
         }
-        
     }
     return n;
-    
 }
 
-void PReorderITer(Node* T)
-{
-    //Node* temp = T;
+// Iterative preorder traversal of BST
+void PReorderITer(Node* T) {
     top++;
     Stack[top] = T;
     
-    //printf("f");
-    while (top != -1)
-    {
-        Node* temp =  Stack[top];
+    while (top != -1) {
+        Node* temp = Stack[top];
         top--;
         printf("%i ", temp->data);
-        if(temp->right != NULL){
-             top++;
+        if (temp->right != NULL) {
+            top++;
             Stack[top] = temp->right;
-            
         }
-        if(temp->left != NULL){
-              top++;
+        if (temp->left != NULL) {
+            top++;
             Stack[top] = temp->left;
-           
         }
-        
     }
-    
-
 }
 
-void INOrderItr(Node* T)
-{   
-    //top++;
-  //  Stack[top] = T;
+// Iterative inorder traversal of BST
+void INOrderItr(Node* T) {
     Node* temp = T;
 
-    while (true)
-    {
-        if(temp != NULL)
-        {
+    while (true) {
+        if (temp != NULL) {
             top++;
-            Stack[top] = temp; 
+            Stack[top] = temp;
             temp = temp->left;
         }
-        else{
-            if(top == -1) break;
+        else {
+            if (top == -1) break;
             temp = Stack[top];
             top--;
             printf("%i ", temp->data);
             temp = temp->right;
         }
-        
     }
-    
 }
 
-void POstorderItr(Node* T){
+// Iterative postorder traversal of BST
+void POstorderItr(Node* T) {
     Node* temp = T;
     top++;
     Stack[top] = T;
-    while (top != -1)
-    {
-        //pop
-       temp = Stack[top];
-       top--;
-
-        //push
-       top2++;
-       Stack2[top2] = temp;
-       if(temp->left != NULL) {
+    while (top != -1) {
+        temp = Stack[top];
+        top--;
+        top2++;
+        Stack2[top2] = temp;
+        if (temp->left != NULL) {
             top++;
-            Stack[top] = temp->left; 
-       }
-       if(temp->right != NULL) {
+            Stack[top] = temp->left;
+        }
+        if (temp->right != NULL) {
             top++;
-            Stack[top] = temp->right; 
-       }
+            Stack[top] = temp->right;
+        }
     }
-    while (top2 != -1)
-    {
+    while (top2 != -1) {
         temp = Stack2[top2];
         top2--;
         printf("%i ", temp->data);
     }
-    
-    
 }
 
-
-
-int main()
-{
+int main() {
     Node* meowOS = BST_new();
     BST_insert(meowOS, 55);
     BST_insert(meowOS, 52);
